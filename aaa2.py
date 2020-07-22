@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas import DataFrame
 
-df = pd.read_excel('stock2.xlsx')
+df = pd.read_excel('stock3.xlsx')
 
 inventory_code = df['code'].tolist()
 inventory_name= df['name'].tolist()
@@ -39,16 +39,16 @@ class Inventory:
                 inventory_amount_new.insert(i,self.i_amount)
                 inventory_location_new.insert(i,self.i_location)
             else:
-                inventory_unit_new.insert(i,5)
-                inventory_amount_new.insert(i,5)
-                inventory_location_new.insert(i,5)
+                inventory_unit_new.insert(i,inventory_unit[i])
+                inventory_amount_new.insert(i,inventory_amount[i])
+                inventory_location_new.insert(i,inventory_location[i])
 
 
         p = zip(inventory_name, inventory_amount_new, inventory_unit_new, inventory_code, inventory_location_new)
         df2 = DataFrame(p)
         df2.columns = ["name", "amount", "birim", "code", "location"]
 
-        writer = pd.ExcelWriter('stock2.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('stock3.xlsx', engine='xlsxwriter')
         df2.to_excel(writer, sheet_name='Sheet1')
 
         writer.save()
